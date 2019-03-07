@@ -401,77 +401,6 @@ var shoppingCartData = [{
 }];
 
 
-// Question 1 - Defining an Object
-//
-// Online shopping is really big. It's how you and everyone else does much of their shopping.
-//
-// Every shopping site has a cart. The cart needs to display the items you are purchasing, the quantity of each item, and price.
-//
-// You need to build a shopping cart!
-//
-// Object Oriented programming will be your approach.
-//
-// **Step 1 - **
-//
-// The first step will be to define an object that represents an item in the cart. Use a class. You class should have thefollowing properties:
-//
-// name
-// price
-// qty
-// Step 2 -
-//
-// Add a method to your class that returns the subtotal (price * qty).
-//
-// subtotal: returns price * qty
-// Step 3 -
-//
-// Define a class that will be a shopping cart. A shopping cart is responsible for holding an array of Items. It should have a property:
-//
-// cart
-// Step 4 -
-//
-// The Cart needs to calculate the total cost of the cart. This should be the total of all subtotals of all items in the cart.
-//
-// total:
-// loops through all items
-// calls subtotal on every item
-// returns the sum of all subtotals
-// Step 5 -
-//
-// Add a method to the Cart class that adds a new item to the shopping cart.
-//
-// addItem(name, price, qty) : Creates a new item and adds it to the cart array.
-// Step 6-
-//
-// Create a new cart and add 100 items! Use 'shopping-cart-data.js', this file defines an array of objects each with a name, price, and qty.
-//
-// Make an instance of Cart.
-// loop through the shoppingCartData array
-// call addItem() with the params from the objects in teh array
-// Step 7-
-//
-// It's possible to add tewo items with the same name when calling addItem. Modify your code to increase the qty of an item if it already exists in cart.
-//
-// Step 8-
-//
-// Each item needs a describe() method that returns a string describing the purchase. The description string should read:
-//
-// " $ * = "
-//
-// Step 9-
-//
-// The cart needs to be able to display a list of all everything in the cart.
-//
-// Create displayCart() method that prints the contents of the cart to the console by calling describe() on each item in the cart and displaying the return string in the console.
-//
-// Step 10-
-//
-// Add a couple more methods to the shopping cart class.
-//
-// itemCount() returns the number of items in cart
-// getTax(tax) takes a tax percent and returns the tax amount
-// describe() returns a string that lists all items in cart, followed by "You have items in your cart. Total cost + tax: = <total+tax>"
-
 // import shoppingCartData from '/Users/jamesmccrory/documents/dev/few1.2/shopping_cart_data.js'
 
 class Item{
@@ -487,20 +416,16 @@ class Item{
 
     describe(){
         return `${this.name} costs $${this.price} each and you got ${this.qty}, so you spent $${this.subtotal()} on ${this.name}.`
-        // " $ * = "
     }
-
 }
 
 
 class ShoppingCart{
     constructor(){
         this.cart = []
-        // this.names = []
     }
 
     total(){
-        // step 4... forEach loop == dicey
         let sum = 0
         this.cart.forEach(function(item){
             sum += item.subtotal()
@@ -517,10 +442,30 @@ class ShoppingCart{
             if (!inArray) {
              this.cart.push(cartItem);}
             }
-    lookAtItems(){
+
+    displayCart(){
         this.cart.forEach(function(item){
             console.log(item.describe())
         })
+    }
+
+    itemCount(){
+        return this.cart.length
+    }
+
+    getTax(tax){
+        let taxAmt = 0
+        taxAmt = tax*this.total()
+        return taxAmt
+    }
+
+    describe(){
+        let list = ""
+        this.cart.forEach(function(item){
+            list += item.describe() + '\n'
+        })
+        list += '\n' + `You have ${this.itemCount()} items in your cart. Total ${this.total()} + ${this.getTax(.05)} = ${this.total()+this.getTax(.05)}`
+        return list
     }
 }
 
@@ -528,16 +473,7 @@ let myCart = new ShoppingCart()
 
 shoppingCartData.forEach(function(item){
   myCart.addItem(item.name, item.price, item.qty)
-  myCart.lookAtItems()
+  // myCart.displayCart()
 });
 
-console.log(myCart.cart.length)
-
-
-// Step 8-
-//
-// Each item needs a describe() method that returns a
-// string describing the purchase.
-// The description string should read:
-//
-// " $ * = "
+console.log(myCart.describe())
