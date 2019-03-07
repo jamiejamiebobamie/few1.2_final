@@ -1,4 +1,4 @@
-var shoppingCartData = [{
+let shoppingCartData = [{
   "name": "Ice Cream Bar - Rolo Cone",
   "price": 5.19,
   "qty": 6
@@ -400,4 +400,4 @@ var shoppingCartData = [{
   "qty": 8
 }];
 
-// export const shoppingCartData
+export default shoppingCartData

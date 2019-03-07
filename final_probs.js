@@ -401,7 +401,7 @@ var shoppingCartData = [{
 }];
 
 
-// import shoppingCartData from '/Users/jamesmccrory/documents/dev/few1.2/shopping_cart_data.js'
+import shoppingCartData from './shopping_cart_data.js' //--experimental-modules
 
 class Item{
     constructor(name, price, qty){
